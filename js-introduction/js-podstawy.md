@@ -212,7 +212,7 @@ f.next(); // value undefined
 
 ## JS paradygmaty
 
-JS jest jezykiem wieloparadygmatowym, mozna w nim prograowac funkcyjne oraz obiektowow.
+JS jest jezykiem wieloparadygmatowym, mozna w nim programowac funkcyjnie oraz obiektowo.
 
 Programowanie funkcyjne - w skrócie oparte na pure function, czyli funkcji w rozumieniu matematycznym, ten sam input, ten sam output, brak side efektow
 

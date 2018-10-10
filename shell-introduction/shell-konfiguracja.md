@@ -59,3 +59,5 @@ DBCollection.prototype.drop = messageForUser;
 //usuwanie indexu
 DBCollection.prototype.dropIndex = messageForUser;
 ```
+
+---

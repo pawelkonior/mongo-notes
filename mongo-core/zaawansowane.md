@@ -57,3 +57,69 @@ db.user.insertMany(
 3. Sprawdzenie wielkości dokumentu można wykonać funkcją Object.bsonsize(doc), wynik jest w bajtach.
 
 ## R - delete
+
+deleteOne(), deleteMany() -> pierwszy parametr to filter, działa na dokumentach kolekcji.
+
+Usunięcie kolekcji drop();
+
+```js
+db.user.drop();
+```
+
+## U - update
+
+replaceOne(), updateOne(), upadateMany(), dla wszystkich pierwszy parametr to filter. updateOne(), updateMany() -> 2 parametr to modyfikator, replaceOne() -> parametr to dokument.
+
+Powyższe operacje używają zasad:
+
+- ostatni wygrywa
+- operacje są atomiczne
+
+Update posiada specjalne operatorami, które są kluczami, za pomocą, których można stworzyć bardziej złożone operacje takie jak dodawanie, usuwanie kluczy, modyfikowanie tablic i osadzonych dokumentów.
+
+Operatory rozpoczynają swoją nazwę od $.
+
+```js
+{
+  "url": "opi.com",
+  "pageviews": 200
+}
+
+db.analytics.updateOne({"url": "opi.com"}, {"$inc": {"pageviews": 1}})
+```
+
+1. $set -> ustawia wartość pola, jeżeli pole nie istnieje, zostanie utworzone. Przydatny przy zmianie struktury dokumentu, może również zmieniać typ danych.
+
+2. $unset -> usuwa pole z dokumentu
+
+3. $inc -> zwiększa wartość o podaną. Może być użyty tylko z integer, long, doubrle
+
+4. $push -> dodaje element na koniec tablicy w dokumencie
+
+5. $pop -> usuwa element z końca tablicy w dokumencie.
+
+6. $addToSet -> dodaje element jeżeli nie istnieje (not redundand);
+
+7. $pull -> usuwa element z tablicy, wg podanych kryteriów, a nie na podstawie pozycji jak np. $pop.
+
+**Operatory** posiadają modyfikatory. Np. $each, $ne, $sort, $slice. Modyfikatory również rozpoczynają swoją nazwę od $. Ich główną zaletą jest możliwośc łączenia w łańcuch.
+
+**Upsert** - specjalny rodzaj update. Jeżeli element nie zostanie znaleziony na podstawie filtra zostanie utworzony. Dzięki czemu nie musimy sprawdzać całej bazy w poszukiwaniu elementu i dopiero dodawać jeżeli nie istnieje.
+
+```js
+db.analytics.updateOne(
+  { url: "/university" },
+  { $inc: { pageviews: 1 } },
+  { upsert: true }
+);
+```
+
+---
+
+Czasami potrzebujemy coś znaleźć w celu wykonania operacji na tym, dlatego funkcje są pomocne:
+
+```js
+findOneAndDelete();
+findOneAndReplace();
+findOneAndUpdate();
+```

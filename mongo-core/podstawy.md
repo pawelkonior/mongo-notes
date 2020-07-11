@@ -57,7 +57,7 @@ db.user.update(
   {
     name: "Paweł"
   },
-  ($set: { name: "Paweł Paweł" })
+  {$set: { name: "Paweł Paweł" }}
 );
 ```
 
